@@ -1,4 +1,4 @@
-import { CreateGalleryItemDTO } from "../api/galleryCard.controller";
+import { CreateGalleryItemDTO } from "../api/createGalleryItem.dto";
 import { GalleryItem } from "../domain/galleryItem.entity";
 import { GalleryItemRepository } from "../infrastructure/galleryItem.repository";
 

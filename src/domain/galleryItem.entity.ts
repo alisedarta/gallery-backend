@@ -4,10 +4,10 @@ export class GalleryItem {
   constructor(
     public id: string = randomUUID(),
     public title: string,
-    public artist_title: string,
-    public place_of_origin: string,
-    public date_display: string,
-    public image_id: string
+    public artistTitle: string,
+    public placeOfOrigin: string,
+    public dateDisplay: string,
+    public imageId: string
   ) {
     this.validate();
   }
@@ -15,10 +15,10 @@ export class GalleryItem {
   private validate() {
     if (
       !this.title ||
-      !this.artist_title ||
-      !this.place_of_origin ||
-      !this.date_display ||
-      !this.image_id
+      !this.artistTitle ||
+      !this.placeOfOrigin ||
+      !this.dateDisplay ||
+      !this.imageId
     ) {
       throw new Error("Cannot create GalleryItem with invalid body");
     }
@@ -26,18 +26,18 @@ export class GalleryItem {
 
   static create(data: {
     title: string;
-    artist_title: string;
-    place_of_origin: string;
-    date_display: string;
-    image_id: string;
+    artistTitle: string;
+    placeOfOrigin: string;
+    dateDisplay: string;
+    imageId: string;
   }): GalleryItem {
     return new GalleryItem(
       undefined,
       data.title,
-      data.artist_title,
-      data.place_of_origin,
-      data.date_display,
-      data.image_id
+      data.artistTitle,
+      data.placeOfOrigin,
+      data.dateDisplay,
+      data.imageId
     );
   }
 }
