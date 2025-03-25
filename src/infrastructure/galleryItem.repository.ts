@@ -11,4 +11,10 @@ export class GalleryItemRepository {
   getAll(): GalleryItem[] {
     return this.galleryItems;
   }
+
+  delete(id: string): void {
+    this.galleryItems = this.galleryItems.filter((item) => item.id !== id);
+  }
+
+  //TODO: When switching to mongoDB i need to persist updated values from PUT requests
 }
