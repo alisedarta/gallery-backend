@@ -1,5 +1,5 @@
 import express from "express";
-import router from "./api/galleryCard.controller";
+import router from "./api/galleryItem.controller";
 
 const app = express();
 const PORT = 3000;
