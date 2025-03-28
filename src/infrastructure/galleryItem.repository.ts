@@ -1,20 +1,30 @@
+import { CreateGalleryItemDTO } from "../api/createGalleryItem.dto";
 import { GalleryItem } from "../domain/galleryItem.entity";
+import { GalleryItemModel, IGalleryItem } from "./galleryItem.schema";
 
 export class GalleryItemRepository {
-  private galleryItems: GalleryItem[] = [];
-
-  create(item: GalleryItem): GalleryItem {
-    this.galleryItems.push(item);
-    return item;
+  async create(item: GalleryItem): Promise<IGalleryItem> {
+    const newItem = new GalleryItemModel(item);
+    await newItem.save();
+    return newItem;
   }
 
-  getAll(): GalleryItem[] {
-    return this.galleryItems;
+  async getAll(): Promise<IGalleryItem[]> {
+    return await GalleryItemModel.find();
   }
 
-  delete(id: string): void {
-    this.galleryItems = this.galleryItems.filter((item) => item.id !== id);
+  async delete(id: string): Promise<void | null> {
+    return await GalleryItemModel.findByIdAndDelete(id);
   }
 
-  //TODO: When switching to mongoDB i need to persist updated values from PUT requests
+  async update(
+    id: string,
+    data: CreateGalleryItemDTO
+  ): Promise<IGalleryItem | null> {
+    return await GalleryItemModel.findByIdAndUpdate(id, data, { new: true });
+  }
+
+  async findById(id: string): Promise<IGalleryItem | null> {
+    return await GalleryItemModel.findById(id);
+  }
 }

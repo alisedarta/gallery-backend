@@ -20,15 +20,20 @@ router.post("/", (req, res) => {
   }
 });
 
-router.get("/", (req, res) => {
-  res.status(200).json(repository.getAll());
+router.get("/", async (req, res) => {
+  try {
+    const galleryItems = await repository.getAll();
+    res.status(200).json(galleryItems);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 // amazonq-ignore-next-line
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const deletedItem = deleteGalleryItem.execute(id);
+    const deletedItem = await deleteGalleryItem.execute(id);
     res.status(200).json(deletedItem);
   } catch (error: any) {
     res.status(404).json({ message: error.message });
@@ -36,10 +41,10 @@ router.delete("/:id", (req, res) => {
 });
 
 // amazonq-ignore-next-line
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const updatedGalleryItem = updateGalleryItem.execute(id, req.body);
+    const updatedGalleryItem = await updateGalleryItem.execute(id, req.body);
     res.status(201).json(updatedGalleryItem);
   } catch (error: any) {
     res.status(404).json({ message: error.message });
