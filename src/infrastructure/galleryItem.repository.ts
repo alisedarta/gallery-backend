@@ -9,7 +9,10 @@ export class GalleryItemRepository {
     return newItem;
   }
 
-  async getAll(): Promise<IGalleryItem[]> {
+  async getAll(limit?: number): Promise<IGalleryItem[]> {
+    if (limit) {
+      return await GalleryItemModel.find().limit(limit);
+    }
     return await GalleryItemModel.find();
   }
 

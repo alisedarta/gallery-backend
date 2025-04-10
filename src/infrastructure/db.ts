@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
+import { envConfig } from "../envconfig";
 
-const MONGO_URI = "mongodb://127.0.0.1:27017/gallery";
-// i removed the mongodb connection uri to commit this ticket but it is working
-// (i guess i will figure it out in next one with dotenv)
+const MONGO_URI = envConfig.mongoUri;
 
 export async function connectDB() {
   try {
