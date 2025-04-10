@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
 import { GalleryItemRepository } from "../infrastructure/galleryItem.repository";
 import { CreateGalleryItem } from "../application/createGalleryItem";
 import { DeleteGalleryItem } from "../application/deleteGalleryItem";
@@ -21,11 +21,21 @@ router.post("/", (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  try {
-    const galleryItems = await repository.getAll();
-    res.status(200).json(galleryItems);
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
+  const limit = req.query.limit
+    ? parseInt(req.query.limit as string)
+    : undefined;
+  if (limit && (isNaN(limit) || limit < 0)) {
+    res.status(400).json({
+      message:
+        "Invalid 'limit' query parameter. Must be a non-negative integer.",
+    });
+  } else {
+    try {
+      const galleryItems = await repository.getAll(limit);
+      res.status(200).json(galleryItems);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
   }
 });
 
