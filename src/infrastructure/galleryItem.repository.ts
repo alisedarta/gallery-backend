@@ -10,10 +10,11 @@ export class GalleryItemRepository {
   }
 
   async getAll(limit?: number): Promise<IGalleryItem[]> {
+    let query = GalleryItemModel.find();
     if (limit) {
-      return await GalleryItemModel.find().limit(limit);
+      query = query.limit(limit);
     }
-    return await GalleryItemModel.find();
+    return await query;
   }
 
   async delete(id: string): Promise<void | null> {
