@@ -31,9 +31,15 @@ router.get("/", async (req, res) => {
     });
     return;
   }
+  const filters = {
+    is_on_view: req.query.is_on_view === "true",
+    is_public_domain: req.query.is_public_domain === "true",
+    has_not_been_viewed_much: req.query.is_hidden_gem === "true",
+    searchTerm: req.query.searchTerm as string,
+  };
 
   try {
-    const galleryItems = await repository.getAll(limit);
+    const galleryItems = await repository.getAll(limit, filters);
     res.status(200).json(galleryItems);
   } catch (error: any) {
     res.status(500).json({ message: error.message });

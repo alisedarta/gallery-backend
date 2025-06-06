@@ -9,12 +9,21 @@ export class GalleryItemRepository {
     return newItem;
   }
 
-  async getAll(limit?: number): Promise<IGalleryItem[]> {
-    let query = GalleryItemModel.find();
-    if (limit) {
-      query = query.limit(limit);
+  async getAll(limit?: number, filters?: any): Promise<IGalleryItem[]> {
+    let query: any = {};
+    if (filters) {
+      if (filters.is_on_view) query.isOnView = true;
+      if (filters.is_public_domain) query.isPublicDomain = true;
+      if (filters.has_not_been_viewed_much) query.hasNotBeenViewedMuch = true;
+      if (filters.searchTerm) {
+        query.$or = [
+          { title: { $regex: filters.searchTerm, $options: "i" } },
+          { artistTitle: { $regex: filters.searchTerm, $options: "i" } },
+        ];
+      }
     }
-    return await query;
+    const items = await GalleryItemModel.find(query).limit(limit || 0);
+    return items;
   }
 
   async delete(id: string): Promise<void | null> {
