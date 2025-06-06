@@ -19,6 +19,7 @@ const GalleryItemSchema = new Schema<IGalleryItem>(
   { timestamps: true } // Adds createdAt & updatedAt fields, i dont know if i need them tbf
 );
 
+GalleryItemSchema.index({ title: "text", artistTitle: "text" });
 export const GalleryItemModel = mongoose.model<IGalleryItem>(
   "GalleryItem",
   GalleryItemSchema,
