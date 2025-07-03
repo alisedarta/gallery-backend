@@ -1,11 +1,13 @@
 import express from "express";
 import router from "./api/galleryItem.controller";
+import cors from "cors";
 import { connectDB } from "./infrastructure/db";
 
 const app = express();
 connectDB();
 const PORT = 3000;
 app.use(express.json());
+app.use(cors());
 app.get("/health", (req, res) => {
   res.status(200).json({ message: "Server is healthy" });
 });
