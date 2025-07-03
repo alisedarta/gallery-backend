@@ -10,10 +10,6 @@ const createGalleryItem = new CreateGalleryItem(repository);
 const deleteGalleryItem = new DeleteGalleryItem(repository);
 const updateGalleryItem = new UpdateGalleryItem(repository);
 
-router.get("/health", (req, res) => {
-  res.send("OK");
-});
-
 // amazonq-ignore-next-line
 router.post("/", (req, res) => {
   try {
