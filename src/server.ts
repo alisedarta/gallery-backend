@@ -7,7 +7,7 @@ const app = express();
 connectDB();
 const PORT = 3000;
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173" }));
 app.get("/health", (req, res) => {
   res.status(200).json({ message: "Server is healthy" });
 });
