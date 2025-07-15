@@ -1,8 +1,8 @@
 import express from "express";
 import router from "./api/galleryItem.controller";
+import cors from "cors";
 import { connectDB } from "./infrastructure/db";
 
-const cors = require("cors");
 const app = express();
 connectDB();
 const PORT = 3000;
